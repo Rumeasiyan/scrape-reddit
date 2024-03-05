@@ -1,10 +1,19 @@
 {
     "manifest_version": 3,
-    "name": "Reddit Scraper",
+    "name": "No Spoiler Zone",
     "version": "1.0",
-    "permissions": ["activeTab", "scripting", "downloads"],
-    "host_permissions": ["https://www.reddit.com/*"],
-    "background": {
-        "service_worker": "background.js"
+    "description": "A web extension that blocks spoilers on Reddit websites.",
+    "permissions": ["activeTab", "storage", "scripting"],
+    "background": {},
+    "content_scripts": [
+        {
+            "matches": ["<all_urls>"],
+            "js": ["content-script.js"]
+        }
+    ],
+    "icons": {
+        "16": "/Images/NPZ 16.png",
+        "48": "/Images/NPZ 48.png",
+        "128": "/Images/NPZ 128.png"
     }
 }

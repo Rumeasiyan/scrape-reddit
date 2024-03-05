@@ -1,16 +1,23 @@
-// Define a function to inject the Python script
-function injectScript() {
-    const script = document.createElement("script");
-    script.src = chrome.runtime.getURL("reddit_scraper.js");
-    script.onload = () => {
-        script.remove();
-    };
-    (document.head || document.documentElement).appendChild(script);
-}
+// content.js
 
-// Execute the script when the document is ready
-if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", injectScript);
-} else {
-    injectScript();
-}
+document.addEventListener("DOMContentLoaded", function () {
+    function scrapeRedditHomepage() {
+        const articles = document.querySelectorAll("article[aria-label]");
+        articles.forEach((article) => {
+            const ariaLabel = article.getAttribute("aria-label");
+            console.log("Aria Label:", ariaLabel);
+
+            const images = article.querySelectorAll("img[src]");
+            const imageUrls = Array.from(images).map((img) =>
+                img.getAttribute("src")
+            );
+            if (imageUrls.length > 0) {
+                console.log("Image URLs:", imageUrls);
+            } else {
+                console.log("No Image URLs found");
+            }
+        });
+    }
+
+    scrapeRedditHomepage();
+});
