@@ -1,12 +1,10 @@
-// background.js
-
 document.addEventListener("DOMContentLoaded", function () {
     chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
         if (
             changeInfo.status === "complete" &&
             tab &&
             tab.url &&
-            tab.url.startsWith("https://www.reddit.com/")
+            /^https:\/\/www\.reddit\.com\//.test(tab.url)
         ) {
             chrome.scripting.executeScript({
                 target: { tabId: tabId },
